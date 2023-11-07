@@ -1,0 +1,27 @@
+cabal-version: 3.6
+name: haskellxr
+version: 1.0.0.0
+synopsis: Haskell application for OpenAI GPT-3 integration
+description:
+  This Haskell application is designed to interact with the OpenAI GPT-3 API
+  to generate Haskell code prompts. It sends requests to the GPT-3 API,
+  processes responses, and can be customized for various use cases.
+license: CC0-1.0
+author: amar94
+maintainer: dev0xrobotics@gmail.com
+category: Development
+extra-source-files: CHANGELOG.md
+
+library
+
+executable haskellxr
+  main-is: Main.hs
+  build-depends:
+    base >= 4.7 && < 5,
+    http-conduit,
+    aeson,
+    text,
+    directory,
+    process
+  hs-source-dirs: app
+  default-language: Haskell2010
