@@ -24,7 +24,7 @@ apiKey = "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"
 
 -- GPT-3 endpoint
 endpoint :: String
-endpoint = "https://api.openai.com/v1/engines/davinci/completions"
+endpoint = "https://api.openai.com/v1/engines/gpt-3.5-turbo/completions"
 
 main :: IO ()
 main = do 
