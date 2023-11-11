@@ -11,17 +11,23 @@ import qualified Data.Text.Encoding as TE  -- Import Data.Text.Encoding
 import System.Directory (createDirectory)
 import System.IO (stdout, hSetBuffering, BufferMode (LineBuffering))
 import System.Process (callProcess)
+import System.Random (randomRIO)
+import Control.Monad (replicateM)
+
+-- Function to generate a random string
+randomString :: Int -> IO String
+randomString len = replicateM len $ randomRIO ('a', 'z')
 
 -- OpenAI API key
 apiKey :: Text
-apiKey = "PASTE_YOUR_API_KEY_HERE"
+apiKey = "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"
 
 -- GPT-3 endpoint
 endpoint :: String
 endpoint = "https://api.openai.com/v1/engines/davinci/completions"
 
 main :: IO ()
-main = do
+main = do 
     hSetBuffering stdout LineBuffering
 
     TIO.putStrLn "Welcome to Haskell Project Generator!"
@@ -52,20 +58,27 @@ createHaskellProject userPrompt = do
     TIO.putStrLn "Received response:"
     TIO.putStrLn (generateMainCode userPrompt generatedCode)
 
+       -- Generate a random string to use as the directory name
+    dirName <- randomString 10
+
     -- Create a Haskell project directory
     TIO.putStrLn "Creating Haskell project directory:"
-    createDirectory "my_haskell_project"
+    createDirectory dirName
 
     -- Create Haskell files and write generated code
-    TIO.writeFile "my_haskell_project/Main.hs" $ generateMainCode userPrompt generatedCode
-    TIO.writeFile "my_haskell_project/README.md" "Welcome to My Haskell Project!"
+    let mainPath = dirName ++ "/Main.hs"
+    let readmePath = dirName ++ "/README.md"
+    TIO.writeFile mainPath $ generateMainCode userPrompt generatedCode
+    TIO.writeFile readmePath "Welcome to My Haskell Project!"
 
     TIO.putStrLn "Haskell project files created successfully:"
 
     -- Build the Haskell project (You can customize this part based on your build process)
     TIO.putStrLn "Building Haskell project:"
-    callProcess "ghc" ["-o", "my_haskell_project/my_haskell_app", "my_haskell_project/Main.hs"]
+    let appPath = dirName ++ "/my_haskell_app3"
+    callProcess "ghc" ["-o", appPath, mainPath]
     TIO.putStrLn "Haskell project built successfully:"
+
 
 -- Helper function to generate Main.hs code with the user's prompt and the generated code
 generateMainCode :: Text -> Value -> Text

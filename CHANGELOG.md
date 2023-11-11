@@ -1,4 +1,4 @@
-# Revision history for haskellxr
+# Revision history for haskellfuse
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
