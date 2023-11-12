@@ -23,6 +23,7 @@ executable haskellxr
     text,
     directory,
     process,
-    random
+    random,
+    tintin
   hs-source-dirs: app
   default-language: Haskell2010

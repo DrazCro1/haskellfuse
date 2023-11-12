@@ -13,6 +13,10 @@ import System.IO (stdout, hSetBuffering, BufferMode (LineBuffering))
 import System.Process (callProcess)
 import System.Random (randomRIO)
 import Control.Monad (replicateM)
+import qualified Tintin
+
+generateDocumentation :: IO ()
+generateDocumentation = Tintin.run Tintin.defaultConfiguration
 
 -- Function to generate a random string
 randomString :: Int -> IO String
